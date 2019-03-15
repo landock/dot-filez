@@ -1,0 +1,8 @@
+{
+  "cwd": "/Users/i.am/repos/animation-library",
+  "cmd": "yarn serve",
+  "env": {
+    "PATH": "/usr/local/bin:/Users/i.am/.rbenv/shims:/Users/i.am/.nvm/versions/node/v9.4.0/bin:/Users/i.am/.rbenv/shims:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/opt/yarn-[version]/bin:/Users/i.am/.rbenv/shims:/usr/local/bin:/usr/local/opt/go/libexec/bin:/Users/i.am/Library/Python/2.7/bin",
+    "PORT": 5000
+  }
+}

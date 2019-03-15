@@ -1,0 +1,78 @@
+if has('gui_running')
+  set guifont=Monoid\ Regular:h12
+endif
+color base16-gruvbox-dark-hard
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+
+if &term =~# '^screen'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+autocmd VimEnter * DetectIndent
+set expandtab
+set termguicolors
+
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set sw=2
+set tabstop=2
+
+if executable('rg')
+    let g:ackprg = 'rg --vimgrep --no-heading'
+endif
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+augroup FiletypeGroup
+    autocmd!
+    au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+augroup END
+
+" Plugin configs
+let g:ale_linters = {'jsx':  'eslint', 'javascript': 'eslint'}
+let g:ale_linter_aliases = {'jsx': 'css'}
+let g:ale_fixers = {'javascript': 'prettier_eslint'}
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_use_global = 1
+let g:airline#extensions#ale#enabled = 1
+
+let vim_markdown_preview_github=1
+let g:rufo_auto_formatting = 1
+
+"-------------------------------------------------------------
+"" Fix for YankRing bug
+"-------------------------------------------------------------
+set clipboard=unnamed
+let g:yankring_clipboard_monitor=0
+
+" Move between Vim and Tmux windows {{{
+if exists('$TMUX')
+  function! TmuxOrSplitSwitch(wincmd, tmuxdir)
+    let previous_winnr = winnr()
+    execute "wincmd " . a:wincmd
+    if previous_winnr == winnr()
+      " The sleep and & gives time to get back to vim so tmux's focus tracking
+      " can kick in and send us our ^[[O
+      execute "silent !sh -c 'sleep 0.01; tmux select-pane -" . a:tmuxdir . "' &"
+      redraw!
+    endif
+  endfunction
+  let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+  let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
+  let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+  nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<CR>
+  nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<CR>
+  nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<CR>
+  nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<CR>
+else
+  map <C-h> <C-w>h
+  map <C-j> <C-w>j
+  map <C-k> <C-w>k
+  map <C-l> <C-w>l
+endif
+
+" }}}

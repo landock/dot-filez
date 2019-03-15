@@ -1,0 +1,7 @@
+{
+  "cwd": "/Users/i.am/lola-dogs",
+  "cmd": "yarn start",
+  "env": {
+    "PATH": "/usr/local/bin:/Users/i.am/.rbenv/shims:/Users/i.am/.rbenv/shims:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/i.am/.rbenv/shims:/Users/i.am/.nvm/versions/node/v9.4.0/bin:/opt/yarn-[version]/bin:/usr/local/opt/go/libexec/bin:/opt/yarn-[version]/bin:/Users/i.am/.rbenv/shims:/usr/local/bin:/usr/local/opt/go/libexec/bin"
+  }
+}
